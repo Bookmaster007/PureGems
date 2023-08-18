@@ -1,9 +1,11 @@
 package com.keith.puregem;
 
+import com.keith.puregem.block.ModBlocks;
 import com.keith.puregem.item.ModItems;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -49,6 +51,8 @@ public class PureGem
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
         ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
+
         VANILLA_ITEMS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so blocks get registered
         BLOCKS.register(modEventBus);
@@ -71,8 +75,22 @@ public class PureGem
 
     private void addCreative(CreativeModeTabEvent.BuildContents event)
     {
-        if (event.getTab() == CreativeModeTabs.BUILDING_BLOCKS){
-
+        if (event.getTab() == CreativeModeTabs.INGREDIENTS){
+            event.accept(ModItems.RUBY);
+            event.accept(ModBlocks.RUBY_ORE);
+        }
+        if (event.getTab() == CreativeModeTabs.TOOLS_AND_UTILITIES){
+            event.accept(ModItems.RUBY_SHOVEL);
+            event.accept(ModItems.RUBY_PICKAXE);
+            event.accept(ModItems.RUBY_AXE);
+            event.accept(ModItems.RUBY_HOE);
+        }
+        if (event.getTab() == CreativeModeTabs.COMBAT){
+            event.accept(ModItems.RUBY_SWORD);
+            event.accept(ModItems.RUBY_AXE);
+            event.accept(ModItems.RUBY_HELMET);
+            event.accept(ModItems.RUBY_CHESTPLATE);
+            event.accept(ModItems.RUBY_LEGGINGS);
         }
     }
 
